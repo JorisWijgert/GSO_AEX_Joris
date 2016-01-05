@@ -25,6 +25,7 @@ public class AEXBanner extends Application {
     public static final int NANO_TICKS = 20000000;
 
     private Text text;
+    private String stringText;
     private double textLength;
     private double textPosition;
     private BannerController controller;
@@ -32,7 +33,6 @@ public class AEXBanner extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        controller = new BannerController(this);
 
         Font font = new Font("Arial", HEIGHT);
         text = new Text();
@@ -54,14 +54,18 @@ public class AEXBanner extends Application {
 
             @Override
             public void handle(long now) {
+                text.setText(stringText);
+                textLength = text.getLayoutBounds().getWidth();
                 long lag = now - prevUpdate;
-                if (lag >= 20000000) {
+                if (lag >= NANO_TICKS) {
+                    if (textPosition + textLength <= 0) {
+                        textPosition = WIDTH;
+                    } else {
+                        textPosition -= 5;
+                    }
+                    text.relocate(textPosition, 0);
                     prevUpdate = now;
-                    // calculate new location of text
-                    // TODO
                 }
-                text.relocate(textPosition, 0);
-                prevUpdate = now;
             }
 
             @Override
@@ -69,6 +73,7 @@ public class AEXBanner extends Application {
                 prevUpdate = System.nanoTime();
                 textPosition = WIDTH;
                 text.relocate(textPosition, 0);
+                controller = new BannerController(AEXBanner.this);
                 super.start();
             }
         };
@@ -81,8 +86,7 @@ public class AEXBanner extends Application {
     }
 
     public void setKoersen(String koersen) {
-        text.setText(koersen);
-        textLength = text.getLayoutBounds().getWidth();
+        stringText = koersen;
     }
 
     /**

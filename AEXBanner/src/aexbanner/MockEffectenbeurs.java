@@ -16,18 +16,30 @@ import java.util.List;
 public class MockEffectenbeurs implements IEffectenBeurs {
 
     List<IFonds> fondsen;
-    @Override
-    public List<IFonds> getKoersen() {
+
+    public MockEffectenbeurs() {
         fondsen = new ArrayList<>();
-        fondsen.add(new Fonds("Philips", random()*100));
-        fondsen.add(new Fonds("LG", random()*100));
-        fondsen.add(new Fonds("TomTom", random()*100));
-        fondsen.add(new Fonds("HEMA", random()*100));
-        fondsen.add(new Fonds("Ahold", random()*100));
-        fondsen.add(new Fonds("Sennheiser", random()*100));
+        fondsen.add(new Fonds("Philips", random() * 100));
+        fondsen.add(new Fonds("LG", random() * 100));
+        fondsen.add(new Fonds("TomTom", random() * 100));
+        fondsen.add(new Fonds("HEMA", random() * 100));
+        fondsen.add(new Fonds("Ahold", random() * 100));
+        fondsen.add(new Fonds("Sennheiser", random() * 100));
         fondsen.add(new Fonds("Apple", random()));
-        fondsen.add(new Fonds("Microsoft", random()*100));
-        return fondsen;
+        fondsen.add(new Fonds("Microsoft", random() * 100));
     }
     
+    public void setKoersen(){
+        for(IFonds f : fondsen){
+            Fonds fonds = (Fonds) f;
+            fonds.setKoers(random() * 100);
+        }
+    }
+
+    @Override
+    public List<IFonds> getKoersen() {
+
+        return fondsen;
+    }
+
 }

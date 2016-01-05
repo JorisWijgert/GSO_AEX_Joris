@@ -5,6 +5,8 @@
  */
 package aexbanner;
 
+import static java.lang.Math.round;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -43,7 +45,8 @@ public class BannerController extends TimerTask {
         String text = "";
         for(IFonds fonds : fondsen){
             text = text + "   " + fonds.getNaam();
-            text = text + ": " + fonds.getKoers();
+            DecimalFormat df = new DecimalFormat("#.##");
+            text = text + ": " + df.format(fonds.getKoers());
         }
         banner.setKoersen(text);
     }

@@ -11,8 +11,8 @@ package aexbanner;
  */
 public class Fonds implements IFonds {
 
-    private final String naam;
-    private final double koers;
+    private String naam;
+    private double koers;
     
     public Fonds(String naam, double koers){
         this.naam = naam;
@@ -27,6 +27,20 @@ public class Fonds implements IFonds {
     @Override
     public double getKoers() {
         return koers;
+    }
+
+    /**
+     * @param naam the naam to set
+     */
+    public void setNaam(String naam) {
+        this.naam = naam;
+    }
+
+    /**
+     * @param koers the koers to set
+     */
+    public void setKoers(double koers) {
+        this.koers = koers;
     }
     
 }
